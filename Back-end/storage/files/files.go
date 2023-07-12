@@ -2,7 +2,6 @@ package files
 
 import (
 	"errors"
-	"fmt"
 	"path/filepath"
 
 	"read-adviser-bot/lib/e"

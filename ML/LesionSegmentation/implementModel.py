@@ -145,14 +145,7 @@ def show_before_after (device, model, data):
     #   plt.show()
 
       segmented_lesion = Y_hat[0, 0].to('cpu').numpy()
-      print("type(segmented_lesion)", type(segmented_lesion))
-      print("type(segmented_lesion[0][0])", type(segmented_lesion[0][0]))
-      print("Before shape")
-      print("segment_lesion.shape", segmented_lesion.shape)
       segmented_lesion_bytes = segmented_lesion.tobytes()
-      print()
-      print("type(segmented_lesion_bytes)", type(segmented_lesion_bytes))
-      print("len(segmented_lesion_bytes)", len(segmented_lesion_bytes))
       return segmented_lesion_bytes
     
 def segment_lesion(extension, image_size, image_data):
@@ -160,18 +153,8 @@ def segment_lesion(extension, image_size, image_data):
   ROOT = '/home/viktor/Projects/Univer/Sem8/Deploma/Deploma'
   LESION_SEGMENTATION_MODEL_PATH = os.path.join(ROOT, 'ML/LesionSegmentation/Models/Unet2.pt')
 
-  print()
-  print("segment_lesion")
-  print(extension)
-  print(image_size)
-  print("len(image_data)", len(image_data))
-
-
   readed_image = Image.open(io.BytesIO(image_data))
-  print(type(readed_image))
   readed_image = np.asarray(readed_image)
-  print("readed_image " + str(type(readed_image)))
-  print("readed_image.shape" + str(readed_image.shape))
 
   device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
   print(device)
@@ -184,8 +167,6 @@ def segment_lesion(extension, image_size, image_data):
   images = []
   lesions = []
   for i in range(6):
-    print("type(readed_image)" + str(type(readed_image)))
-    print("readed_image.shape", readed_image.shape)
     images.append(readed_image)
     lesions.append(readed_image)
 
@@ -195,7 +176,6 @@ def segment_lesion(extension, image_size, image_data):
 
   X = np.array(X, np.float32)
   Y = np.array(Y, np.float32)
-  print(f'Loaded {len(X)} images')
 
   len(lesions)
 
@@ -203,8 +183,6 @@ def segment_lesion(extension, image_size, image_data):
 
   ix = np.random.choice(len(X), len(X), False)
   tr, val, ts = np.split(ix, [2, 4])
-
-  print(len(tr), len(val), len(ts))
 
   batch_size = 10
   data_val = DataLoader(list(zip(np.rollaxis(X[val], 3, 1), Y[val, np.newaxis])),

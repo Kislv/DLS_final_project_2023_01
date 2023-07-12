@@ -7,29 +7,15 @@ from torchvision import datasets, transforms
 import torch
 import torchvision.models as models
 
-
-
-def printHello():
-    print("hello from other file!")
-
 def classificateImage(extension, size,  data):
-    print('!!!!!!!!')
-    print(size)
-    print(type(data))
     ROOT = '/home/viktor/Projects/Univer/Sem8/Deploma/Deploma'
     DISEASE_SEGMENTATION = 'ML/DiseaseClassification'
     IMAGES = 'Images'
     MODELS = 'Models'
     IMAGE_CLASSIFICATION_PATH = os.path.join(IMAGES, 'mole_pores2.jpg')
 
-    print(f'len(data) = {len(data)}')
-    print(f'size = {size}')
-    print(f'size[0] * size[1] = {size[0] * size[1]}')
-    
     readed_image = Image.open(io.BytesIO(data))
     readed_image_tensor = transforms.ToTensor()(readed_image)
-    print(type(readed_image))
-    print(readed_image)
     plt.imshow(np.rollaxis(readed_image_tensor.to('cpu').numpy(), 0, 3))
     plt.axis('off')
     plt.savefig("FROM_SERVER.png", bbox_inches='tight', pad_inches = 0)
@@ -77,7 +63,5 @@ def classificateImage(extension, size,  data):
 
     outputs = loaded_swin(readed_image_tensor.to(device))
     predicted = torch.argmax(outputs.data,-1)    
-    print("predicted[0]", predicted[0])
-    print(classes[predicted.item()])   
-    return classes[predicted.item()]
+    return classes[predicted.item()-1]
 

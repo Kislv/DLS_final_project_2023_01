@@ -33,7 +33,7 @@ GRPC, PyTorch, Telegram API, OpenCV
 
 # Демонстрация:
 
-https://drive.google.com/file/d/1Sw30nP8-eZutXRDIBr42dUASQsWCvAaO/view?usp=sharing
+https://drive.google.com/file/d/1zkAr_7YWQ0Tw5NI5bLRbgmOTeAEiDpYT/view?usp=sharing
 
 # Инструкция по запуску:
 

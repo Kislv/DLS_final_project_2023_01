@@ -11,9 +11,6 @@ import lesionSegmentation_pb2_grpc
 class LesionSegmentationServicer(lesionSegmentation_pb2_grpc.LesionSegmentationServicer):
 
   def Segment(self, request, context):
-    print(type(request.image))
-    print(request.width)
-    print(request.height)
     segmented_lesion = implementModel.segment_lesion(request.extenstion, (request.width, request.height), request.image)
     return lesionSegmentation_pb2.SegmentLesionResponse(segmentedImage = segmented_lesion)
   
