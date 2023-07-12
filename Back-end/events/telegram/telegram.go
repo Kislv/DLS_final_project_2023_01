@@ -14,6 +14,7 @@ import (
 	PBDiseaseClassification "read-adviser-bot/clients/GRPC/DiseaseClassification/grpc"
 	"read-adviser-bot/clients/telegram"
 	"read-adviser-bot/events"
+	"read-adviser-bot/utils/log"
 	"read-adviser-bot/lib/e"
 
 	"read-adviser-bot/utils/cast"
@@ -160,7 +161,6 @@ func (p *Processor) processMessage(ctx context.Context, event events.Event) (err
 	if err != nil {
 		return err
 	}
-	fmt.Printf("len(meta.Photo): %v\n", len(meta.Photo))
 	diagnosis := ""
 	lesionParameters := events.LesionParameters{Area: 0, Diameter: 0}
 	if len(meta.Photo) > 0{
@@ -235,11 +235,7 @@ func (p *Processor) DownLoadImage (fileId string) (*[]byte, string, error) {
 	if err != nil {
 		return nil, "", err
 	}
-	fmt.Printf("filePath: %v\n", filePath)
 	ext := filepath.Ext(filePath)[1:]
-	fmt.Printf("ext: %v\n", ext)
-	fmt.Printf("filepath.Ext(filePath): %v\n", filepath.Ext(filePath))
-	fmt.Printf("len(data): %v\n", len(data))
 	dataPointer := &data
 	return dataPointer, ext, nil
 }
@@ -256,7 +252,7 @@ func (p *Processor) Diagnosis (photo telegram.Photo, extension string, imageData
 	if err != nil {
 		return "", err
 	}
-	fmt.Printf("ImageClassificationResponse.DiseaseName: %v\n", ImageClassificationResponse.DiseaseName)
+	log.Info(fmt.Sprintf("ImageClassificationResponse.DiseaseName: %v\n", ImageClassificationResponse.DiseaseName))
 	return ImageClassificationResponse.DiseaseName, nil
 }
 
@@ -270,8 +266,8 @@ func (p *Processor) areaAndDiameter (ImageParameters *events.ImageParameters, po
 	if err != nil {
 		return events.LesionParameters{}, err
 	}
-	fmt.Printf("ImageClassificationResponse.Area: %v\n", ImageClassificationResponse.Area)
-	fmt.Printf("ImageClassificationResponse.Diameter: %v\n", ImageClassificationResponse.Diameter)
+	log.Info(fmt.Sprintf("ImageClassificationResponse.Area: %v\n", ImageClassificationResponse.Area))
+	log.Info(fmt.Sprintf("ImageClassificationResponse.Diameter: %v\n", ImageClassificationResponse.Diameter))
 	return events.LesionParameters{Area: ImageClassificationResponse.Area, Diameter: ImageClassificationResponse.Diameter}, nil
 
 }

@@ -18,10 +18,7 @@ const (
 )
 
 const (
-	msgUnknownCommand = "Unknown command 🤔"
-	msgNoSavedPages   = "You have no saved pages 🙊"
-	msgSaved          = "Saved! 👌"
-	msgAlreadyExists  = "You have already have this page in your list 🤗"
+	msgUnknownCommand = "Неизвестная команда 🤔"
 	msgDiagnosis   	  = "Предполагаемое заболевание: %s 🦠"
 	msgLesionPatameters   = "\nПлощадь поражения: %.2f см^2;\nДиаметр области поражения: %.2f см."
 )

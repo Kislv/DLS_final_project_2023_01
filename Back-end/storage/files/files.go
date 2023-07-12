@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 
 	"read-adviser-bot/lib/e"
+	"read-adviser-bot/utils/log"
 )
 
 type Storage struct {
@@ -26,7 +27,7 @@ func IsValidExtension (filePath string) (error) {
 		".png": {},
 	}
 	ext := filepath.Ext(filePath)
-	fmt.Println("ext:", ext)
+	log.Info("ext:" + ext +"\n")
 
 	if _, is := validExtensions[ext]; !is {
 		return e.Wrap("Extension = " + ext, ErrBadFileExtension)
